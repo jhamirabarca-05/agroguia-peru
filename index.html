@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgroGuía Perú | Sanidad Vegetal y Dosificación Agrícola</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Estilos y Tipografía Atkinson Hyperlegible Next -->
+  <link rel="stylesheet" href="assets/css/app.css" />
+</head>
+<body class="min-h-screen flex flex-col selection:bg-emerald-100">
+
+  <!-- =========================================================================
+       CABECERA LIMPIA (SIN EMOJIS, CON ICONOS SVG)
+       ========================================================================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-2 sm:gap-4">
+      <div class="flex items-center gap-2.5 shrink-0">
+        <!-- Icono botánico SVG -->
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-emerald-800 flex items-center justify-center text-white shadow-xs shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20m0-20C8.5 7 4 9 4 14a8 8 0 008 8m0-20c3.5 5 8 7 8 12a8 8 0 01-8 8" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-black text-slate-900 tracking-tight leading-tight">AgroGuía Perú</h1>
+          <p class="text-[11px] text-slate-500 font-medium hidden sm:block">Sanidad vegetal y dosificación práctica de campo</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <button id="btn-reset" class="text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-2.5 sm:px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5" title="Reiniciar consulta">
+          <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span class="hidden sm:inline">Reiniciar</span>
+        </button>
+
+        <button onclick="window.print()" class="text-xs font-bold text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 px-2.5 sm:px-3.5 py-2 rounded-xl transition-colors flex items-center gap-1.5" title="Imprimir receta técnica">
+          <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          <span class="hidden md:inline">Imprimir</span>
+        </button>
+
+        <button id="btn-open-academic" class="text-xs font-bold text-slate-700 hover:text-slate-900 bg-white border border-slate-300 hover:bg-slate-50 px-2.5 sm:px-3 py-2 rounded-xl transition-colors flex items-center gap-1.5 shadow-2xs" title="Ver sustento teórico, reglas y CLIPS para evaluación">
+          <svg class="w-4 h-4 text-emerald-700 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <span class="text-[11px] sm:text-xs">Modo Docente</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       CUERPO PRINCIPAL - FLUJO HUMANO EN 5 PASOS
+       ========================================================================= -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-8 flex-1 w-full space-y-10">
+
+    <!-- PASO 1: SELECCIONAR CULTIVO -->
+    <section id="step-crop" class="space-y-4 no-print">
+      <div>
+        <span class="text-xs font-bold text-emerald-800 tracking-wider uppercase">Paso 1</span>
+        <h2 class="text-xl md:text-2xl font-black text-slate-900 leading-tight">¿Qué cultivo desea revisar hoy?</h2>
+        <p class="text-xs md:text-sm text-slate-500 mt-0.5">Seleccione el cultivo para ver los problemas más frecuentes de su zona.</p>
+      </div>
+
+      <!-- Cuadrícula de Cultivos con Fotos Reales -->
+      <div id="crop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Renderizado dinámicamente -->
+      </div>
+    </section>
+
+    <!-- PASO 2: SELECCIONAR SÍNTOMAS (SE MUESTRA AL ELEGIR CULTIVO) -->
+    <section id="step-symptoms" class="hidden space-y-4 pt-6 border-t border-slate-200 no-print">
+      <!-- Banner de Cultivo Seleccionado con opción de cambio rápido -->
+      <div id="selected-crop-banner" class="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-2xl px-4 py-2.5 text-xs text-emerald-900">
+        <div class="flex items-center gap-2">
+          <span class="font-bold text-emerald-800">Cultivo en revisión:</span>
+          <span id="selected-crop-label" class="font-black text-emerald-950 text-sm"></span>
+        </div>
+        <button id="btn-change-crop" class="text-xs font-bold text-emerald-800 hover:text-emerald-950 underline cursor-pointer">
+          Cambiar cultivo
+        </button>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <span class="text-xs font-bold text-emerald-800 tracking-wider uppercase">Paso 2</span>
+          <h2 class="text-xl md:text-2xl font-black text-slate-900 leading-tight">¿Qué daño o señal observa en la planta?</h2>
+          <p class="text-xs md:text-sm text-slate-500 mt-0.5">Marque una o varias señales que coincidan con lo que ve en su chacra.</p>
+        </div>
+        <div>
+          <span id="symptoms-count-badge" class="bg-slate-100 text-slate-700 border border-slate-200 px-3 py-1 rounded-full text-xs font-bold">
+            0 seleccionados
+          </span>
+        </div>
+      </div>
+
+      <!-- Filtro por parte de la planta -->
+      <div id="organ-filters" class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs">
+        <!-- Botones de filtro -->
+      </div>
+
+      <!-- Cuadrícula de Síntomas con Fotos Reales -->
+      <div id="symptoms-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Renderizado dinámicamente -->
+      </div>
+
+      <!-- Botón de acción -->
+      <div class="pt-4 flex justify-center">
+        <button id="btn-run-diagnosis" disabled class="opacity-50 cursor-not-allowed bg-emerald-800 hover:bg-emerald-900 text-white font-black text-sm md:text-base px-8 py-3.5 rounded-2xl shadow-md transition-all flex items-center gap-2">
+          <span>Identificar problema y ver recomendaciones</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </section>
+
+    <!-- RESULTADOS (PASOS 3, 4 Y 5) -->
+    <div id="results-wrapper" class="hidden space-y-8 pt-6 border-t-2 border-emerald-700">
+
+      <!-- Encabezado exclusivo para impresión de receta técnica -->
+      <div class="print-only border-b-2 border-emerald-800 pb-3 mb-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h1 class="text-xl font-black text-slate-900">AgroGuía Perú • Receta Técnica de Campo</h1>
+            <p class="text-xs text-slate-600">Prescripción de Sanidad Vegetal y Dosificación Práctica de Mezcla</p>
+          </div>
+          <div class="text-right text-xs text-slate-500">
+            <span id="print-date"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASO 3: DIAGNÓSTICO -->
+      <section id="card-diagnosis" class="print-area">
+        <!-- Renderizado dinámicamente -->
+      </section>
+
+      <!-- PASO 4: TRATAMIENTO -->
+      <section id="card-treatment" class="print-area">
+        <!-- Renderizado dinámicamente -->
+      </section>
+
+      <!-- PASO 5: CALCULADORA AGRÍCOLA -->
+      <section id="card-calculator" class="print-area bg-white rounded-3xl border border-slate-200 p-5 md:p-7 shadow-xs space-y-6">
+        <div class="border-b border-slate-200 pb-3 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="text-xs font-bold text-emerald-800 tracking-wider uppercase">Paso 5</span>
+            <h3 class="text-lg md:text-xl font-black text-slate-900">Calculadora de mezcla para su parcela</h3>
+            <p class="text-xs text-slate-500 mt-0.5">Indique el tamaño de su terreno y el equipo con el que va a fumigar.</p>
+          </div>
+          <span class="text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 px-3 py-1 rounded-full">
+            Dosis exacta sin desperdicio
+          </span>
+        </div>
+
+        <!-- Formulario simple para el agricultor -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 bg-slate-50 p-4 md:p-5 rounded-2xl border border-slate-200">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Área de su terreno:</label>
+            <div class="flex items-center">
+              <input type="number" id="calc-area-val" value="1.0" min="0.1" step="0.1" class="w-full bg-white border border-slate-300 rounded-l-xl px-3.5 py-2.5 text-base font-black text-slate-900 focus:outline-none focus:ring-2 focus:ring-emerald-600" />
+              <select id="calc-area-unit" class="bg-slate-200 border border-slate-300 border-l-0 rounded-r-xl px-3 py-2.5 text-xs font-bold text-slate-700 focus:outline-none">
+                <option value="ha">Hectáreas (ha)</option>
+                <option value="topos">Topos (≈ 1/3 ha)</option>
+                <option value="m2">Metros² (m²)</option>
+              </select>
+            </div>
+            <span class="text-[11px] text-slate-500 mt-1 block">1 hectárea = 10,000 metros cuadrados</span>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Equipo que usará en el campo:</label>
+            <select id="calc-equipment" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600">
+              <option value="mochila_20">Mochila manual de palanca (20 Litros)</option>
+              <option value="cilindro_200">Cilindro grande (200 Litros - 55 galones)</option>
+              <option value="tractor">Tractor con barra pulverizadora (500 Litros)</option>
+            </select>
+            <span class="text-[11px] text-slate-500 mt-1 block">La mochila de 20L es la más común en pequeñas parcelas</span>
+          </div>
+
+          <div class="sm:col-span-2 lg:col-span-1 flex flex-col justify-end">
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 text-xs text-emerald-900">
+              <span class="font-bold block mb-0.5">Medida de campo sencilla:</span>
+              El cálculo le dirá exactamente cuántas cucharas soperas o copas echar por cada mochila para no quemar la planta.
+            </div>
+          </div>
+        </div>
+
+        <!-- Resultados de la calculadora de dosis -->
+        <div id="calculator-display">
+          <!-- Renderizado dinámicamente -->
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       PIE DE PÁGINA LIMPIO
+       ========================================================================= -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-xs text-slate-500 mt-12 no-print">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+      <div>
+        <p class="font-bold text-slate-800">AgroGuía Perú • Asistente Digital para Agricultores</p>
+        <p class="text-[11px] text-slate-400">Desarrollado en Huacho, Lima Provincias • Basado en lineamientos oficiales del SENASA</p>
+      </div>
+      <div>
+        <button onclick="document.getElementById('btn-open-academic').click()" class="inline-flex items-center gap-1.5 font-bold text-emerald-800 hover:text-emerald-900 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg transition-colors">
+          <span>Sustentación de Sistemas Expertos (FIISI - UNJFSC)</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       MODAL / DRAWER ACADÉMICO PARA SUSTENTACIÓN (UNJFSC)
+       Se despliega discretamente solo al hacer clic en "Modo Docente"
+       ========================================================================= -->
+  <div id="academic-backdrop" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 hidden transition-opacity no-print"></div>
+  
+  <aside id="academic-drawer" class="fixed top-0 right-0 bottom-0 w-full sm:w-[540px] bg-white z-50 shadow-2xl transform translate-x-full academic-drawer flex flex-col border-l border-slate-200 no-print">
+    <div class="bg-slate-900 text-white p-4 flex items-center justify-between border-b border-slate-800">
+      <div>
+        <span class="text-[10px] font-bold tracking-wider text-emerald-400 uppercase">Sustentación Académica</span>
+        <h3 class="text-sm md:text-base font-black">Sistemas de Expertos (UNJFSC)</h3>
+        <p class="text-[11px] text-slate-400">Docente: Ing. Juan C. Meyhuay Fidel</p>
+      </div>
+      <button id="btn-close-academic" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 flex items-center justify-center text-white">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Pestañas internas del drawer -->
+    <div class="flex border-b border-slate-200 bg-slate-50 p-1.5 gap-1 text-xs font-bold overflow-x-auto">
+      <button data-academic-tab="why" class="academic-tab-btn flex-1 py-1.5 px-2.5 rounded-lg bg-slate-900 text-white transition-colors text-center whitespace-nowrap">
+        ¿Por qué?
+      </button>
+      <button data-academic-tab="how" class="academic-tab-btn flex-1 py-1.5 px-2.5 rounded-lg bg-slate-100 text-slate-600 transition-colors text-center whitespace-nowrap">
+        ¿Cómo? (Traza)
+      </button>
+      <button data-academic-tab="rules" class="academic-tab-btn flex-1 py-1.5 px-2.5 rounded-lg bg-slate-100 text-slate-600 transition-colors text-center whitespace-nowrap">
+        Reglas BC
+      </button>
+      <button data-academic-tab="clips" class="academic-tab-btn flex-1 py-1.5 px-2.5 rounded-lg bg-slate-100 text-slate-600 transition-colors text-center whitespace-nowrap">
+        CLIPS 6.30
+      </button>
+    </div>
+
+    <!-- Contenido del Drawer -->
+    <div class="p-4 md:p-5 flex-1 overflow-y-auto space-y-4">
+      <!-- Panel ¿Por qué? -->
+      <div id="academic-panel-why" class="academic-panel space-y-3">
+        <h4 class="font-extrabold text-sm text-slate-900">Justificación Causal (Why Facility)</h4>
+        <p class="text-xs text-slate-500">Explica qué hechos de la Memoria de Trabajo activaron las premisas de la regla ganadora.</p>
+        <div id="academic-why-box" class="space-y-2">
+          <p class="text-xs text-slate-400 italic">Ejecute una consulta en la pantalla principal para ver la justificación.</p>
+        </div>
+      </div>
+
+      <!-- Panel ¿Cómo? -->
+      <div id="academic-panel-how" class="academic-panel hidden space-y-3">
+        <h4 class="font-extrabold text-sm text-slate-900">Árbol de Inferencia y Traza (How Facility)</h4>
+        <p class="text-xs text-slate-500">Pasos formales de derivación por Modus Ponens (Encadenamiento hacia adelante).</p>
+        <div id="academic-how-box" class="space-y-2">
+          <p class="text-xs text-slate-400 italic">Ejecute una consulta para ver la secuencia cronológica de inferencia.</p>
+        </div>
+        <div class="pt-2">
+          <span class="text-xs font-bold text-slate-700 block mb-1">Traza cruda de ejecución (JSON):</span>
+          <pre id="academic-trace-box" class="p-3 bg-slate-900 text-emerald-400 font-mono text-[10px] rounded-xl overflow-x-auto max-h-48">Esperando inferencia...</pre>
+        </div>
+      </div>
+
+      <!-- Panel Reglas BC -->
+      <div id="academic-panel-rules" class="academic-panel hidden space-y-3">
+        <h4 class="font-extrabold text-sm text-slate-900">Base de Reglas de Producción</h4>
+        <p class="text-xs text-slate-500">Catálogo declarativo SI [Condiciones] ENTONCES [Diagnóstico + Dosis].</p>
+        <div id="academic-rules-box" class="space-y-2">
+          <!-- Renderizado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Panel CLIPS 6.30 -->
+      <div id="academic-panel-clips" class="academic-panel hidden space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="font-extrabold text-sm text-slate-900">Código Fuente CLIPS 6.30 (.clp)</h4>
+          <button id="btn-download-clips" class="text-xs bg-emerald-800 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-md transition-colors">
+            Descargar .clp
+          </button>
+        </div>
+        <p class="text-xs text-slate-500">Código compatible para ejecutar directamente en el entorno de laboratorio CLIPS de la UNJFSC.</p>
+        <pre id="academic-clips-box" class="p-3 bg-slate-900 text-emerald-400 font-mono text-[11px] rounded-xl overflow-x-auto max-h-96">Cargando código CLIPS...</pre>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="assets/js/knowledge_base.js"></script>
+  <script src="assets/js/clips_code.js"></script>
+  <script src="assets/js/inference_engine.js"></script>
+  <script src="assets/js/explanation.js"></script>
+  <script src="assets/js/calculator.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
